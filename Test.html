@@ -7,48 +7,28 @@
     <script src="Test.js"></script>
     <script type="text/javascript">
       function Select(f) {
-        var str;
+        var str, back_color, text_color;
         if(typeof f == "object") {
           str = f.category.options[f.category.selectedIndex].value.toLowerCase()
         } else {
           str = f.toLowerCase()
         };
-        var min = 0, max = 100000;
-        if(str){
-          switch(str) {
-            case "all":
-              min = 0;
-              max = 100000;
-              break;
-            case "gold":
-              min = 10;
-              max = 100000;
-              break;
-            case "silver":
-              min = 5;
-              max = 9;
-              break;
-            case "brown":
-              min = 1;
-              max = 4;
-              break;
-          }
+        switch(str){
+          case 'gold':
+            back_color = "yellow";
+            text_color = "black";
+            break;
+          case 'silver':
+            back_color = "#c0c0c0";
+            text_color = "black";
+            break;
+          case 'brown':
+            back_color = "#cd7f32";
+            text_color = "black";
+            break;
         };
-        $.ajax({
-          url: "https://api.github.com/repos/thomasdavis/backbonetutorials/contributors",
-          success: function(data){
-            var content = "<table align=center><tr><th>Login</th><th>Contributions</th><tr>";
-            for(var i = 0; i < data.length; i++){
-              if((data[i].contributions >= min) && (data[i].contributions <= max)){
-                content += '<tr class=rows><td>' + data[i].login + '</td><td>'+
-                 data[i].contributions +'</td></tr>';
-             }
-            }
-            content += "</table>";
-            $('#content').empty();
-            $('#content').append(content);
-          }
-        });
+        $(".rows").css({"background-color":"black", "color":"white"});
+        $("." + str).css({"background-color":back_color, "color":text_color});
       }
     </script>
   </head>
@@ -56,10 +36,10 @@
     <form>
       <select name="category">
         <option selected disabled>Choose your destiny!</option>
-        <option value = "All">All</option>
-        <option value = "Gold">Gold</option>
-        <option value = "Silver">Silver</option>
-        <option value = "Brown">Brown</option>
+        <option value="All">All</option>
+        <option value="Gold">Gold</option>
+        <option value="Silver">Silver</option>
+        <option value="Brown">Brown</option>
       </select>
       <input type="button" value="OK" onclick="Select(this.form)">
       <input type="text" value="Group" maxlength="6" onchange="Select(this.value)"></input>
