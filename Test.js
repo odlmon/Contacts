@@ -1,7 +1,8 @@
 $.ajax({
   url: "https://api.github.com/repos/thomasdavis/backbonetutorials/contributors",
   success: function(data){
-    var content = "<table align=center><tr><th>Login</th><th>Contributions</th><tr>";
+    var content = "<table align=center><tr><th scope=col>Login</th>" +
+     "<th scope=col>Contributions</th><tr>";
     for(var i = 0; i < data.length; i++){
       var category;
       if (data[i].contributions >= 1 && data[i].contributions <= 4) {
@@ -16,5 +17,10 @@ $.ajax({
     }
     content += "</table>"
     $('#content').append(content);
+  },
+  error: function(){
+    var textStatus = arguments[1];
+    alert(textStatus);
   }
+
 });
