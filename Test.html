@@ -33,17 +33,24 @@
     </script>
   </head>
   <body>
-    <form>
-      <select name="category">
-        <option selected disabled>Choose your destiny!</option>
-        <option value="All">All</option>
-        <option value="Gold">Gold</option>
-        <option value="Silver">Silver</option>
-        <option value="Brown">Brown</option>
-      </select>
-      <input type="button" value="OK" onclick="Select(this.form)">
-      <input type="text" value="Group" maxlength="6" onchange="Select(this.value)"></input>
-    </form>
+     <form>
+    <select name="category">
+      <option disabled="" selected="">Choose your destiny!</option>
+      <option value="All">All</option>
+      <option value="Gold">Gold</option>
+      <option value="Silver">Silver</option>
+      <option value="Brown">Brown</option>
+    </select>
+    <input onclick="Select(this.form)" type="button" value="Select" />
+  </form>
+  <form>
+    <select name="category">
+      <option disable="" selected="">Choose your path of shinoby!</option>
+      <option value="ASC">ASC</option>
+      <option value="DESC">DESC</option>
+    </select>
+    <input onclick="Sort(this.form)" type="button" value="Sort" />
+  </form>
     <div id="content"></div>
   </body>
 </html>
