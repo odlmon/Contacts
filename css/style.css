@@ -29,7 +29,7 @@ tr {
   font-family: 'helvetica neue', sans-serif; }
 
 tr:nth-child(even) {
-  background-color: #a9a9a9;
+  background-color: #708090;
 }
 
 td {
