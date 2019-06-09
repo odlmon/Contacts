@@ -31,19 +31,71 @@
         $("." + str).css({"background-color":back_color, "color":text_color});
       }
     </script>
+      <script type="text/javascript">
+    function compareFunction(a, b) {
+      if (a.login.toLowerCase() < b.login.toLowerCase()) {
+        return -1;
+      } else if (a.login.toLowerCase() > b.login.toLowerCase()) {
+        return 1;
+      } else return 0;
+    }
+        $.ajax({
+  url: "https://api.github.com/repos/thomasdavis/backbonetutorials/contributors",
+  success:   function Sort(f) {
+      var str, back_color, text_color;
+      if (typeof f == "object") {
+        str = f.category.options[f.category.selectedIndex].value.toLowerCase()
+      } else {
+        str = f.toLowerCase()
+      };
+      var arr = data;
+      $("div").remove(content);
+      switch (str) {
+        case 'ASC':
+          arr.sort(compareFunction);
+          break;
+        case 'DESC':
+          arr.sort(compareFunction);
+          arr.reverse();
+          break;
+      };
+    var content = "<table align=center><tr><th scope=col>Login</th>" + "<th scope=col>Contributions</th><tr>";
+          for (var i = 0; i < arr.length; i++) {
+            var category;
+            if (arr[i].contributions >= 1 && arr[i].contributions <= 4) {
+              arr.category = ' brown';
+            } else if (arr[i].contributions >= 5 && arr[i].contributions <= 9) {
+               arr.category = ' silver';
+            } else if (arr[i].contributions >= 10 && arr[i].contributions <= 100000) {
+              arr.category = ' gold';
+            }
+            content += '<tr class=\"rows' + arr.category + '\"><td>' + arr[i].login + '</td><td>' +
+              arr[i].contributions + '</td></tr>';
+          }
+          content += "</table>"
+          $('#content').append(content);
+        }
+  </script>
   </head>
   <body>
-    <form>
-      <select name="category">
-        <option selected disabled>Choose your destiny!</option>
-        <option value="All">All</option>
-        <option value="Gold">Gold</option>
-        <option value="Silver">Silver</option>
-        <option value="Brown">Brown</option>
-      </select>
-      <input type="button" value="OK" onclick="Select(this.form)">
-      <input type="text" value="Group" maxlength="6" onchange="Select(this.value)"></input>
-    </form>
+     <form>
+    <select name="category">
+      <option disabled="" selected="">Choose your destiny!</option>
+      <option value="All">All</option>
+      <option value="Gold">Gold</option>
+      <option value="Silver">Silver</option>
+      <option value="Brown">Brown</option>
+    </select>
+    <input onclick="Select(this.form)" type="button" value="Select" />
+  </form>
+  <form>
+    <select name="category">
+      <option disable="" selected="">Choose your path of shinoby!</option>
+      <option value="ASC">ASC</option>
+      <option value="DESC">DESC</option>
+    </select>
+    <input onclick="Sort(this.form)" type="button" value="Sort" />
+  </form>
     <div id="content"></div>
   </body>
 </html>
