@@ -49,7 +49,6 @@
         str = f.toLowerCase()
       };
       var arr = data;
-      $("div").remove(content);
       switch (str) {
         case 'ASC':
           arr.sort(compareFunction);
@@ -73,7 +72,7 @@
               arr[i].contributions + '</td></tr>';
           }
           content += "</table>"
-          $('#content').append(content);
+         $("div").replaceWith(content);
         }
   </script>
   </head>
