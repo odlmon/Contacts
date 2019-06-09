@@ -39,7 +39,9 @@
         return 1;
       } else return 0;
     }
-    function Sort(f) {
+        $.ajax({
+  url: "https://api.github.com/repos/thomasdavis/backbonetutorials/contributors",
+  success:   function Sort(f) {
       var str, back_color, text_color;
       if (typeof f == "object") {
         str = f.category.options[f.category.selectedIndex].value.toLowerCase()
@@ -47,7 +49,7 @@
         str = f.toLowerCase()
       };
       var arr = data;
-      div.remove(content);
+      $("div").remove(content);
       switch (str) {
         case 'ASC':
           arr.sort(compareFunction);
